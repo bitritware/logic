@@ -1,0 +1,477 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{balance}
+%\usepackage{microtype}
+
+%=====================================================================
+%
+% author: Guangxian(Daway)Cai 
+% https://orcid.org/0009-0003-2227-2162
+%
+%=====================================================================
+
+% ---------------------------------------------------------------- switches
+\newif\ifanon
+%\anontrue            
+\anonfalse            % set \anontrue if the review is double-blind
+
+\newif\ifdraft
+%\draftfalse 
+\drafttrue            % \draftfalse once the AI-use disclosure is written
+
+% ---------------------------------------------------------------- notation
+\newcommand{\D}{D}
+\newcommand{\sgn}{\sigma}
+\newcommand{\fold}{\varphi}
+\newcommand{\SYN}{\mathsf{SYN}}
+\newcommand{\DIF}{\mathsf{DIF}}
+\newcommand{\OR}{\mathsf{OR}}
+\newcommand{\XOR}{\mathsf{XOR}}
+\newcommand{\AND}{\mathsf{AND}}
+\newcommand{\NOT}{\mathsf{NOT}}
+\newcommand{\ANT}{\mathsf{ANT}}
+\newcommand{\MAX}{\mathsf{MAX}}
+\newcommand{\MIN}{\mathsf{MIN}}
+\newcommand{\SWAP}{\mathsf{SWAP}}
+\newcommand{\Fone}{\mathcal F_1}
+\newcommand{\Ftwo}{\mathcal F_2}
+\newcommand{\Z}{\mathcal Z}
+\newcommand{\Odd}{\mathcal S}
+\newcommand{\BP}{\mathcal B}
+\newcommand{\OD}{\mathcal{O}_{\D}}
+\newcommand{\iv}[1]{[\![#1]\!]}
+\newcommand{\chai}{Chai}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+
+%=====================================================================
+% begin document
+%=====================================================================
+\begin{document}
+	
+	\title{Chai: A Signed Three-Valued Algebra\\ from Parameterized Boolean Negation}
+	
+	\ifanon
+	\author{\IEEEauthorblockN{Anonymous Author(s)}}
+	\else
+	\author{\IEEEauthorblockN{Guangxian (Daway) Cai}
+		\IEEEauthorblockA{Independent Researcher\\
+			ORCID: 0009-0003-2227-2162}}
+	\fi
+	
+	\maketitle
+	
+	\begin{abstract}
+		Chai is a signed three-valued algebra obtained by making the constant in the arithmetic definition of Boolean negation, $\mathsf{not}(b)=1-b$, a variable: $\DIF(a,b)=\sgn(a-b)$. Its section $\ANT(b)=\DIF(0,b)$ sends $1$ to $-1\notin\{0,1\}$; closing under $\DIF$ gives $\{-1,0,+1\}$. Of the seven resulting primitives, $\SYN,\OR,\XOR,\AND,\NOT$ generate exactly the operations that map Boolean inputs to Boolean outputs. $\DIF$ alone generates the odd operations, five binary operations the zero-fixing ones, and 40 of 127 subsets are complete (95 with constants).
+	\end{abstract}
+	
+	\begin{IEEEkeywords}
+		Boolean negation, signed difference, three-valued algebra, functional completeness, clones, balanced ternary
+	\end{IEEEkeywords}
+	
+	%=====================================================================
+	% Introduction
+	%=====================================================================
+	\section{Introduction}
+	Balanced ternary $\{-1,0,+1\}$ is convenient for arithmetic~\cite{knuth1997}, was realized in the Setun computer~\cite{brusentsov2011}, and has returned in ternary CNTFET circuits~\cite{lin2011,bos2022} and ternary-weight neural networks~\cite{ma2024}. Three-valued logics are usually fixed by a truth-functional lattice or by arithmetic on $[0,1]$ and then studied~\cite{kleene1952,cignoli2000}. Here the starting point is an arithmetic expression already present in Boolean logic.
+	
+	\emph{From Boolean negation to Chai.} On $B=\{0,1\}$ negation is $\mathsf{not}(b)=1-b$. Making its constant a variable gives the difference $a-b$, and sign extraction gives $\DIF(a,b)=\sgn(a-b)$, which returns $\mathsf{not}$ at $a=1$ on $B$. The section at $a=0$, $\ANT(b)=\DIF(0,b)=-b$, sends $1$ to $-1\notin B$. Closure under $\DIF$ therefore forces a larger carrier, and the least one containing $B$ is $\D=\{-1,0,+1\}$ (Proposition~\ref{prop:carrier}). As with natural numbers and integers, a subtraction forces the extension (a motivating analogy only). The arithmetic \emph{definition} of negation is thus not closed on $B$ once its constant is a parameter; closing it gives $\D$, and the Boolean operations remain inside as exactly the operations that keep $B$ (Theorem~\ref{thm:bool}), so one signature serves bits and trits. A BID (bit dyad, a pair of bits) represents a value of $\D$ as the difference of its two bits. Under $x\mapsto-x$ the seven primitives split into an odd layer ($\SYN,\DIF,\ANT$), an even layer ($\OR,\XOR,\AND$) and one zero-moving operation ($\NOT$), and the generation results follow this split.
+	
+	\emph{Contributions.} (i)~\emph{Derivation.} The constant-to-variable step, its three sections (only $\ANT$ is an involution) and the minimal carrier $\D$, stated relative to the chosen sign rule (Section~II). (ii)~\emph{One signature for bits and trits.} $\SYN,\OR,\XOR,\AND,\NOT$ generate exactly the operations that map Boolean inputs to Boolean outputs (Theorem~\ref{thm:bool}); the fold $\fold$ is compatible only with $\AND$ and $\ANT$ (Proposition~\ref{prop:fold}). (iii)~\emph{Generation and completeness.} $\DIF$ alone generates exactly the odd operations of every arity; the five binary operations generate exactly the zero-fixing ones, and one zero-moving operation then gives all (Theorems~\ref{thm:odd}, \ref{thm:zero}). A subset of the signature is complete iff it contains $\NOT$ and generates $\DIF$: 40 of the 127 nonempty subsets, or 95 if $0,+1,-1$ are nullary operations (Theorem~\ref{thm:class}, Remark~\ref{rem:const}); $\AND=\DIF(\OR,\XOR)$ by a parity argument (Theorem~\ref{thm:pol}). (iv)~\emph{Configuration view.} Every function is a difference of two $\{0,1\}$-valued functions in $2^z$ ways, which ties the algebra to the XY3, G3 and C9 layers (Section~VI).
+	
+	\emph{Prior work and scope.} Known are the count $3^9=19\,683$, the strong Kleene operations~\cite{kleene1952}, the classical completeness criteria of Post and S{\l}upecki~\cite{post1921,slupecki1939,slupecki1972} and the maximality of the zero-fixing clone~\cite{rosenberg1970,lau2006}. We claim no new completeness criterion: the contribution is the derivation, the explicit generating terms and the exact classification for one signature. The author's earlier filings describe the coding of a ternary digit by a bit pair and hybrid binary--ternary computation~\cite{caiWOa,caiWO}, with truth tables that include those of $K_3$ and $L_3$ and differ from the tables here. The published divisional~\cite{caiCN} describes the XY3, G3 and C9 layers and gives T9ID words for operations named DIF, OR and AND; its DIF and AND carry the words of $\DIF$ and $\AND$ here and its OR the word of $\SYN$. These filings are cited as technical context; the theorems below are proved independently of them.
+	
+	\emph{Names.} Chai (Korean \emph{chai}, ``difference'') is the algebra studied here, as $\mathsf{bool}$ has the carrier $\{0,1\}$; BiHe is the broader computing framework and the BID its basic unit.
+	
+	%=====================================================================
+	% From Boolean Negation to Chai Difference
+	%=====================================================================
+	\section{From Boolean negation to Chai difference}
+	Let $B=\{0,1\}$ and $\D=\{-1,0,+1\}$. For integers $x$ let $\sgn(x)=\iv{x>0}-\iv{x<0}$ and $\fold(x)=\sgn(x^2)=\iv{x\ne0}$.
+	
+	\begin{table*}[!t]
+		\centering\footnotesize
+		\setlength{\tabcolsep}{2.5pt}
+		\caption{Truth tables over $\D$ (rows $a$, columns $b$, both in the order $-,0,+$; $-,+$ denote $\mp1$). The unary table lists the values at $-1,0,+1$.}
+		\label{tab:tt}
+		\begin{tabular}{c|ccc}
+			\multicolumn{4}{c}{$\SYN$}\\\hline
+			& $-$&$0$&$+$\\\hline
+			$-$&$-$&$-$&$0$\\ $0$&$-$&$0$&$+$\\ $+$&$0$&$+$&$+$
+		\end{tabular}\quad
+		\begin{tabular}{c|ccc}
+			\multicolumn{4}{c}{$\DIF$}\\\hline
+			& $-$&$0$&$+$\\\hline
+			$-$&$0$&$-$&$-$\\ $0$&$+$&$0$&$-$\\ $+$&$+$&$+$&$0$
+		\end{tabular}\quad
+		\begin{tabular}{c|ccc}
+			\multicolumn{4}{c}{$\OR$}\\\hline
+			& $-$&$0$&$+$\\\hline
+			$-$&$+$&$+$&$0$\\ $0$&$+$&$0$&$+$\\ $+$&$0$&$+$&$+$
+		\end{tabular}\quad
+		\begin{tabular}{c|ccc}
+			\multicolumn{4}{c}{$\XOR$}\\\hline
+			& $-$&$0$&$+$\\\hline
+			$-$&$0$&$+$&$+$\\ $0$&$+$&$0$&$+$\\ $+$&$+$&$+$&$0$
+		\end{tabular}\quad
+		\begin{tabular}{c|ccc}
+			\multicolumn{4}{c}{$\AND$}\\\hline
+			& $-$&$0$&$+$\\\hline
+			$-$&$+$&$0$&$-$\\ $0$&$0$&$0$&$0$\\ $+$&$-$&$0$&$+$
+		\end{tabular}\quad
+		\begin{tabular}{c|ccc}
+			\multicolumn{4}{c}{unary}\\\hline
+			$a$&$-$&$0$&$+$\\\hline
+			$\NOT(a)$&$+$&$+$&$0$\\ $\ANT(a)$&$+$&$0$&$-$\\ $\DIF(-1,a)$&$0$&$-$&$-$
+		\end{tabular}
+	\end{table*}
+	
+	\emph{Parameterizing the constant.} Boolean negation is $\mathsf{not}(x)=1-x$ on $B$. Replacing the constant $1$ by a variable gives $a-b$. Its sections at the constants $c\in\{+1,0,-1\}$ are the unary functions $b\mapsto\sgn(c-b)$, with value vectors on $(-1,0,+1)$: $\NOT=[+,+,0]$, $\ANT=[+,0,-]$ and $\DIF(-1,\cdot)=[0,-,-]=-\NOT(-\,\cdot)$. On $B$ the first is $\mathsf{not}$ and the second is $b\mapsto-b$, with $\ANT(1)=-1\notin B$ and $\ANT(\ANT(1))=1$. Only $\ANT$ is an involution: $\NOT\circ\NOT=[0,0,+]$, and the third section is the dual of $\NOT$. Applying $1-x$ to $-1$ gives $2$, so the arithmetic must be closed by a choice. We choose saturation: every result is replaced by its sign, which on the integers is the value clamped to $[-1,+1]$. Other closures, for example reduction modulo $3$, give different algebras.
+	
+	\begin{proposition}[minimal carrier]\label{prop:carrier}
+		Let $\DIF(a,b)=\sgn(a-b)$ on $\mathbb Z$ and let $C$ be the least subset of $\mathbb Z$ that contains $B$ and is closed under $\DIF$. Then $C=\D$.
+	\end{proposition}
+	\begin{proof}
+		$\DIF(0,1)=\sgn(-1)=-1\in C$, so $\D\subseteq C$. For $a,b\in\D$, $\sgn(a-b)\in\D$, so $\D$ is closed and contains $B$; hence $C\subseteq\D$.
+	\end{proof}
+	The minimality holds for the chosen sign-saturated difference; it is not a consequence of the Boolean axioms. $\DIF$ is not integer subtraction on $\D$: $\DIF(-1,+1)=-1$, whereas $-1-1=-2$.
+	
+	\emph{Primitives.} For $a,b\in\D$ let
+	\begin{align*}
+		\DIF(a,b)&=\sgn(a-b), & \SYN(a,b)&=\sgn(a+b),\\
+		\NOT(a)&=\DIF(+1,a), & \ANT(a)&=\DIF(0,a)=-a,
+	\end{align*}
+	where $\NOT(a)=\sgn(1-a)$ equals $1-a$ only on $B$. $\DIF$ is the three-way comparison, a balance scale: $-1$, $0$, $+1$ for lighter, balanced, heavier (yin, zon, yang). $\SYN$ (synthesis) is the saturated sum; opposite states cancel, $\SYN(+1,-1)=0$, and $\SYN(a,b)=\DIF(a,\ANT(b))$.
+	
+	\emph{Folding.} $\fold$ forgets direction and keeps presence. Put $\OR(a,b)=\fold(a+b)$ and $\XOR(a,b)=\fold(a-b)$. They take three-valued inputs to $\{0,1\}$ and on $B$ are Boolean or and xor. They fold the combination, not the inputs, so opposite directions cancel: $\OR(+1,-1)=0$. On $B$, $\OR$ agrees with Boolean disjunction; it is not integer addition, since $\OR(1,1)=1$ whereas $1+1=2$. Finally $\AND(a,b)=\sgn(4ab)=ab$ is the sign product. Theorem~\ref{thm:pol} shows $\AND=\DIF(\OR,\XOR)$ on $\D$, the Boolean identity $\mathsf{and}=\mathsf{or}-\mathsf{xor}$, so the sign rule of the product is not a separate assumption. Two choices fix the algebra: saturation, and folding after combining. $\SYN,\OR,\XOR,\AND,\NOT$ restrict on $B$ to the Boolean operations, while $\DIF$ and $\ANT$ leave $B$. Table~\ref{tab:tt} gives the truth tables and Table~\ref{tab:layers} the primitives by symmetry, output set and invariants.
+	
+	Uppercase names denote the primitives, lowercase $\mathsf{or},\mathsf{xor},\mathsf{and},\mathsf{not}$ the Boolean operations, and conventional connectives carry labels such as $\OR_{K_3}$, since equal names do not imply equal tables. We write \chai{} for $(\D;\SYN,\DIF,\OR,\XOR,\AND,\NOT,\ANT)$, $\Fone=\D^{\D}$ for the 27 unary functions and $\Ftwo=\D^{\D^2}$ for the $3^9=19\,683$ binary functions.
+	
+	\emph{The BID.} A BID stores $(X,Y)\in B^2$. In the difference view its value is $d=X-Y\in\D$: $(0,1)$ gives yin ($-1$), $(1,0)$ gives yang ($+1$), and $(0,0)$ and $(1,1)$ both give zon ($0$). In the sum view it is $c=X+Y\in\{0,1,2\}$. The pair $(c,d)$ is reversible, $c^2-d^2=4XY$ is the BID form of the polarization of Section~III, and exchanging $X$ and $Y$ negates $d$, so $\ANT$ is a wire exchange. Treating $(1,1)$ as zon is a convention of this paper (Supplement S8).
+	
+	
+	
+	\begin{table}[t]
+		\centering\footnotesize
+		\caption{The seven primitives by symmetry under $x\mapsto-x$ (binary: $(a,b)\mapsto(-a,-b)$), output set and invariants; $\rho=\{(a,b)\in\D^2:ab\ge0\}$.}
+		\label{tab:layers}
+		\setlength{\tabcolsep}{3pt}
+		\resizebox{\columnwidth}{!}{%
+			\begin{tabular}{llllccc}
+				\toprule
+				& definition & parity & range & fixes $0$ & keeps $B$ & keeps $\rho$\\\midrule
+				$\SYN$ & $\sgn(a+b)$ & odd & $\D$ & yes & yes & no\\
+				$\DIF$ & $\sgn(a-b)$ & odd & $\D$ & yes & no & no\\
+				$\ANT$ & $-a$ & odd & $\D$ & yes & no & yes\\
+				$\OR$ & $\fold(a+b)$ & even & $B$ & yes & yes & yes\\
+				$\XOR$ & $\fold(a-b)$ & even & $B$ & yes & yes & yes\\
+				$\AND$ & $\sgn(4ab)$ & even & $\D$ & yes & yes & yes\\
+				$\NOT$ & $\sgn(1-a)$ & neither & $B$ & no & yes & yes\\
+				\bottomrule
+		\end{tabular}}
+	\end{table}
+	
+	%=====================================================================
+	% Algebraic Structure
+	%=====================================================================
+	\section{Algebraic structure}\label{sec:structure}
+	\subsection{Layers and polarization}
+	\begin{proposition}[layers]\label{prop:layers}
+		(i)~$\SYN,\DIF,\ANT$ are odd, $\OR,\XOR,\AND$ are even, and $\NOT$ is neither; $\NOT$ is the only primitive that does not fix $0$. (ii)~$\OR=\fold\circ\SYN$ and $\XOR=\fold\circ\DIF$: $\fold$ turns an odd operation into an even one. (iii)~$\DIF(a,b)=\SYN(a,\ANT(b))$, $\XOR(a,b)=\OR(a,\ANT(b))$ and $\AND(a,\ANT(b))=\ANT(\AND(a,b))$. (iv)~$\NOT(a)=\XOR(+1,a)=\DIF(+1,a)$.
+	\end{proposition}
+	\begin{proof}
+		Direct evaluation at the nine points. For (ii), $\fold(\sgn(x))=\fold(x)$. For (iv), $1-a\ge0$ on $\D$, so $\sgn(1-a)\in\{0,1\}$ and equals $\fold(1-a)$.
+	\end{proof}
+	Negating the second argument thus exchanges $\SYN\leftrightarrow\DIF$ and $\OR\leftrightarrow\XOR$ and negates $\AND$; on a BID this is a wire exchange. For all $a\in\D$, $(\SYN,\DIF,\AND)(a,\ANT(a))=(0,\,a,\,-\fold(a))$: opposed states cancel under $\SYN$ and keep their direction under $\DIF$, whereas Boolean $a\wedge\neg a=0$ keeps neither. Since $\D$ is the set of integers in $[-1,1]$, $\SYN$ and $\DIF$ are the \emph{saturated} sum and difference, and $\AND(a,b)=ab$ is the ordinary product.
+	
+	\begin{lemma}[parity]\label{lem:parity}
+		For $a,b\in\D$: $(|a+b|,|a-b|)\in\{(0,0),(0,2),(2,0),(1,1)\}$.
+	\end{lemma}
+	\begin{proof}
+		$a+b$ and $a-b$ have equal parity and absolute value at most $2$. If both are even and nonzero, both equal $\pm2$, forcing $a=b=\pm1$ and $a-b=0$, a contradiction; so if both are even, one is zero. If both are odd, both are $\pm1$.
+	\end{proof}
+	
+	\begin{theorem}[polarization]\label{thm:pol}
+		For all $a,b\in\D$: $\AND(a,b)=\DIF\big(\OR(a,b),\XOR(a,b)\big)$.
+	\end{theorem}
+	\begin{proof}
+		Put $p=a+b$ and $q=a-b$. The integer identity $p^2-q^2=4ab$ gives $\AND(a,b)=\sgn(p^2-q^2)$. By Lemma~\ref{lem:parity}, $(p^2,q^2)\in\{(0,0),(0,4),(4,0),(1,1)\}$, so two distinct nonzero squares never occur, and $\sgn(p^2-q^2)=\sgn\big(\sgn p^2-\sgn q^2\big)=\DIF(\OR,\XOR)$.
+	\end{proof}
+	\begin{remark}
+		On $B$ the identity is inclusion--exclusion, $\mathbf 1_{A\cup B}-\mathbf 1_{A\triangle B}=\mathbf 1_{A\cap B}$; Theorem~\ref{thm:pol} extends it to signed values. The descent to signs is special to $\D$: on $\{-m,\ldots,m\}$ with $m\ge2$, $(a,b)=(2,1)$ gives $p^2-q^2=8>0$ but $\DIF(\sgn p^2,\sgn q^2)=0$.
+	\end{remark}
+	
+	\subsection{Involution and table symmetry}
+	\begin{theorem}[involution]\label{thm:phi}
+		$\Phi(a,b)=(\SYN(a,b),\DIF(a,b))$ is a permutation of $\D^2$ with $\Phi^2=\mathrm{id}$, consisting of four transpositions and the fixed point $(0,0)$. Hence $a=\SYN(\SYN(a,b),\DIF(a,b))$ and $b=\DIF(\SYN(a,b),\DIF(a,b))$.
+	\end{theorem}
+	\begin{proof}
+		Evaluate the nine points: $\Phi$ swaps $(-,-)\!\leftrightarrow\!(-,0)$, $(-,+)\!\leftrightarrow\!(0,-)$, $(0,+)\!\leftrightarrow\!(+,-)$, $(+,0)\!\leftrightarrow\!(+,+)$ and fixes $(0,0)$.
+	\end{proof}
+	
+	\begin{remark}[table symmetry]\label{rem:rot}
+		Let $\theta(a,b)=(-b,a)$ be the quarter-turn of the grid $\D^2$. Rotating the $3\times3$ truth table of a binary $F$ by $90^\circ$ clockwise (rows $a$, columns $b$, both in the order $-,0,+$) gives the table of $F\circ\theta$. Hence $\SYN\circ\theta=\DIF$, $\DIF\circ\theta=\ANT\circ\SYN$, $\OR\circ\theta=\XOR$, $\XOR\circ\theta=\OR$ and $\AND\circ\theta=\ANT\circ\AND$. Since $\theta^2(a,b)=(-a,-b)$, $F$ is odd iff $F\circ\theta^2=\ANT\circ F$. The map $\theta$ composes $\SWAP$ and $\tau_A$ and lies in the group of Proposition~\ref{prop:sym}: the rotation is an input symmetry, not a further operation.
+	\end{remark}
+	
+	\subsection{Order, complements and the fold}
+	\begin{proposition}[K$_3$ term-definability]\label{prop:k3} 
+		$\MAX(a,b)=\SYN(\SYN(a,b),\XOR(a,b))$ and $\MIN(a,b)=\DIF(\SYN(a,b),\XOR(a,b))$ are terms. Hence $(\D;\MIN,\MAX,\ANT)$ is strong Kleene $K_3$~\cite{kleene1952,cignoli2000} ($-1,0,+1\mapsto F,U,T$), the three-element distributive chain with De~Morgan duality $\ANT(\MAX(a,b))=\MIN(\ANT(a),\ANT(b))$. These are derived operations, not additional primitives.
+	\end{proposition}
+	\emph{Comparison with standard connectives.} In $K_3$ and $L_3$ the middle value reads ``unknown''; here it reads ``balanced'', and the algebra is about comparison, not knowledge. Under $-1=F$, $0=U$, $+1=T$ negation is $a\mapsto-a$ in both and $\min,\max$ are the lattice operations; the $L_3$ connectives are terms too (Supplement S3), since the signature is complete. The primitives differ from the standard ones: $\NOT(0)=+1\ne\ANT(0)=0$, $\AND(-1,-1)=+1\ne\min(-1,-1)$, $\OR$ is not the lattice join, and $\SYN,\DIF,\XOR$ are not $K_3/L_3$ connectives. Boolean compatibility alone does not single out \chai{}: $\{-1,+1\}$ is closed under $\ANT,\MIN,\MAX$ but not under $\SYN$, whereas the Boolean carrier here is $\{0,+1\}$ (Theorem~\ref{thm:bool}). For three-valued connectives see~\cite{lukasiewicz1970}, and for completeness of expansions of $K_3$ see~\cite{roblesmendez2022}.
+	
+	\begin{proposition}[complements, Boolean reduct]\label{prop:not}
+		(i)~$\NOT=[+1,+1,0]$ is not an involution ($\NOT^2=[0,0,+1]$). (ii)~On $B$, $\SYN=\OR=\MAX$, $\AND=\MIN$, $\XOR=\oplus$ and $\NOT=1-x$; $B$ is closed under $\SYN,\OR,\XOR,\AND,\NOT$, and $\DIF$ and $\ANT$ are the only primitives that leave it, so $B$ is a subalgebra of the reduct $(\D;\SYN,\OR,\XOR,\AND,\NOT)$ but not of the full algebra (Theorem~\ref{thm:bool}).
+	\end{proposition}
+	Also $\MAX(a,\ANT(a))=\fold(a)$: excluded middle holds exactly on nonzero states.
+	
+	\begin{proposition}[fold]\label{prop:fold}
+		Among the seven primitives, the equivalence $a\sim b\iff a^2=b^2$ (the kernel of $\fold$ on $\D$, with classes $\{-1,+1\}$ and $\{0\}$) is a congruence of $\ANT$ and $\AND$ only.
+	\end{proposition}
+	\begin{proof}
+		$\fold(\ANT(a))=\fold(a)$ and $\fold(\AND(a,b))=\fold(a)\fold(b)$, so both descend to the classes. For $\SYN,\DIF,\OR,\XOR$ the argument pairs $(1,1)$ and $(1,-1)$ are equivalent, but the values have $\fold$-images $(1,0)$, $(0,1)$, $(1,0)$, $(0,1)$ respectively, which differ; for $\NOT$ the equivalent arguments $1$ and $-1$ give $\fold$-images $0$ and $1$.
+	\end{proof}
+	Hence $\OR=\fold\circ\SYN$ and $\XOR=\fold\circ\DIF$ forget direction and cannot be recovered as operations on the folded values: the Boolean reduct is a restriction to $B$, not a quotient, and the three states do not collapse losslessly into Boolean logic.
+	
+	\emph{Classical laws.} $\SYN$, $\DIF$, $\OR$ and $\XOR$ are not associative (they fail on 4, 16, 8 and 8 of the 27 triples), so an $n$-ary sum is defined as $\sgn\sum_ia_i$. $(\D;\AND)$ is a commutative monoid with unit $+1$ and zero $0$, not idempotent. Under $-1\mapsto2$, $\AND$ is multiplication in $\mathbb F_3$ and $\ANT$ the additive inverse, but $\SYN$ is not addition there. The table of laws is in Supplement S1.
+	
+	%=====================================================================
+	% Generation
+	%=====================================================================
+	\section{Generation}\label{sec:clone}
+	We use positive-arity operations and no nullary symbols; a constant is available when a constant unary function is term-definable. Let $\OD$ be the clone of all operations on $\D$; $\Z_n=\{f:\D^n\to\D\mid f(0,\dots,0)=0\}$ the \emph{zero-fixing} functions, $\Z=\bigcup_n\Z_n$; $\Odd_n$ the \emph{odd} functions, $f(-x)=-f(x)$, $\Odd=\bigcup_n\Odd_n\subseteq\Z$; and $\BP_n=\{f:\D^n\to\D\mid f(B^n)\subseteq B\}$ the \emph{Boolean-preserving} functions. Iverson brackets $\iv{\cdot}$ denote $1$ for true and $0$ for false.
+	
+	\begin{lemma}[indicator terms]\label{lem:ind}
+		Over $\SYN,\DIF,\OR,\XOR,\AND$ the constant $0=\DIF(x,x)$ and $\ANT(x)=\DIF(0,x)$ are terms, and so is the indicator $\delta_p(x)=\iv{x=p}$ for every $n\ge1$ and every $p\in\D^n\setminus\{0\}$.
+	\end{lemma}
+	\begin{proof}
+		Since $\OR(x,x)=x^2$, $\delta_{+1}(x)=\SYN(x,\OR(x,x))$ and $\delta_{-1}(x)=\XOR(x,\OR(x,x))$ have value vectors $(0,0,+1)$ and $(+1,0,0)$ on $(-1,0,+1)$. For $u,v\in\D$ put $h_{\pm1}(u,v)=\AND(\delta_{+1}(u),\delta_{\pm1}(v))$ and $h_0(u,v)=\DIF\big(\delta_{+1}(u),\AND(\delta_{+1}(u),\OR(v,v))\big)$; these equal $\iv{u=+1}\iv{v=\pm1}$ and $\iv{u=+1}\iv{v=0}$. Given $p\neq0$ choose $j$ with $p_j\ne0$, start with $u=\delta_{p_j}(x_j)$ and, for each other $i$ in turn, replace $u$ by $h_{p_i}(u,x_i)$. The value of $u$ stays in $\{0,1\}$, and at the end $u=\iv{x=p}$.
+	\end{proof}
+	
+	\begin{theorem}[zero-fixing barrier]\label{thm:zero}
+		(a)~$\SYN,\DIF,\OR,\XOR,\AND,\ANT\in\Z$. (b)~The five operations $\SYN,\DIF,\OR,\XOR,\AND$ generate exactly $\Z_n$ for every $n\ge1$; in particular $3^2=9$ unary and $3^8=6561$ binary functions ($|\Z_n|=3^{3^n-1}$). (c)~If $f\notin\Z$, the five operations together with $f$ generate $\OD$. This holds for $\NOT$ ($\NOT(0)=+1$, so $\NOT$ is \emph{zero-moving}) and for each of the $18$ unary $g$ with $g(0)\ne0$.
+	\end{theorem}
+	\begin{proof}
+		(a) Each operation maps the all-zero input to zero, and compositions preserve this. (b)~By (a) the generated functions lie in $\Z_n$. Let $f\in\Z_n$ and $P=\{p\neq0:f(p)\neq0\}$. If $P=\emptyset$, $f=\DIF(x_1,x_1)$. Otherwise let $t_p=\delta_p$ if $f(p)=+1$ and $t_p=\ANT(\delta_p)$ if $f(p)=-1$. The $t_p$ ($p\in P$) have disjoint supports, and $\SYN(0,y)=\SYN(y,0)=y$, so combining them with $\SYN$ in any bracketing gives $f$, by Lemma~\ref{lem:ind}. (c)~Let $c=f(0,\dots,0)\ne0$. Substituting the term $0$ for all variables of $f$ gives the constant $c$; $\ANT(c)=-c$ then gives both constants $\pm1$, and $\NOT(x)=\DIF(+1,x)$ is a term. For $F\in\OD$ of arity $n$ let $F'(x)=F(x)$ for $x\ne0$ and $F'(0)=0$; then $F'\in\Z_n$ is generated by (b). With $e_0(x)=\AND\big(\NOT(\OR(x_1,x_1)),\dots,\NOT(\OR(x_n,x_n))\big)=\iv{x=0}$ and the constant term $F(0)$ we get $F=\SYN\big(F',\AND(e_0,F(0))\big)$. The $18$ unary functions with $g(0)\ne0$ are the case $f=g$.
+	\end{proof}
+	Part (c) reproves that $\Z$ is a maximal clone~\cite{rosenberg1970,lau2006}.
+	
+	\begin{theorem}[the difference generates the odd operations]\label{thm:odd}
+		$\DIF$ alone generates exactly $\Odd_n$ for every $n\ge1$; in particular $3$ unary and $3^4=81$ binary functions ($|\Odd_n|=3^{(3^n-1)/2}$).
+	\end{theorem}
+	\begin{proof}
+		$\DIF$ is odd and compositions of odd functions are odd. Conversely, $0=\DIF(x,x)$, $\ANT(x)=\DIF(0,x)$ and $\SYN(a,b)=\DIF(a,\ANT(b))$ are terms. For $c\in\D$ let $k_c(u,v)=u$ if $u\ne0$ and $v=cu$, and $0$ otherwise. Nine-point checks give
+		\begin{align*}
+			k_{-1}(u,v)&=\DIF\big(u,\DIF(v,\DIF(v,u))\big),\\
+			k_{0}(u,v)&=\DIF\big(v,\DIF(v,\DIF(u,v))\big),\\
+			k_{+1}(u,v)&=\DIF\big(\DIF(u,v),\DIF(\DIF(u,v),v)\big).
+		\end{align*}
+		For $p\in\D^n\setminus\{0\}$ choose $j$ with $p_j\ne0$, start with $u=p_jx_j$ (that is $x_j$ or $\ANT(x_j)$) and replace $u$ by $k_{p_i}(u,x_i)$ for each other $i$. Now $u=+1$ iff $x_j=p_j$, $u=-1$ iff $x_j=-p_j$, and $k_{p_i}$ passes $u\neq0$ exactly when $x_i=p_iu$; the result is $s_p(x)=\iv{x=p}-\iv{x=-p}$. An odd $F$ has $F(0)=0$ and is determined by one value on each pair $\{p,-p\}$, so $F$ is the $\SYN$-combination of $s_p$ or $\ANT(s_p)$ over the pairs with $F(p)\ne0$ (disjoint supports), or $F=\DIF(x_1,x_1)$ if $F\equiv0$.
+	\end{proof}
+	In clone terminology $\Odd$ is the centralizer of $\ANT$, the operations self-dual with respect to $x\mapsto-x$, a standard kind of clone; what Theorem~\ref{thm:odd} adds is that the single binary operation $\DIF$ generates it, with explicit terms.
+	
+	\begin{theorem}[Boolean layer]\label{thm:bool}
+		$\SYN,\OR,\XOR,\AND,\NOT$ generate exactly $\BP_n$ for every $n\ge1$; in particular $12$ unary and $3888$ binary functions ($|\BP_n|=2^{2^n}3^{3^n-2^n}$). Hence every Boolean function, with any prescribed values at the points that contain $-1$, is a term, and every term is Boolean on $B$.
+	\end{theorem}
+	\begin{proof}
+		Each of the five maps $B$-tuples to $B$, and so do compositions. Conversely let $f\in\BP_n$. The constants $0=\XOR(x,x)$ and $+1=\NOT(0)$ are terms, and $\iota_{+1}=\SYN(x,\OR(x,x))$, $\iota_{-1}=\XOR(x,\OR(x,x))$, $\iota_0=\NOT(\OR(x,x))$ are the indicators $\iv{x=c}$ of the three values. For $p\in\D^n$ the product $\delta_p=\AND(\iota_{p_1}(x_1),\iota_{p_2}(x_2),\dots)$, nested, is $\iv{x=p}$. If $f(p)=+1$ let $t_p=\delta_p$. If $f(p)=-1$ then $p\notin B^n$, so some $p_j=-1$, and $t_p=\AND(\delta_p,x_j)$ equals $-1$ at $p$ and $0$ elsewhere. The $t_p$ have disjoint supports, and $\SYN$ combines them as in Theorem~\ref{thm:zero}; if $f\equiv0$ then $f=\XOR(x_1,x_1)$.
+	\end{proof}
+	
+	
+	
+	\begin{table}[t]
+		\centering\footnotesize
+		\caption{The clone ladder (no nullary constants): what each generating set produces, with the numbers of unary and binary functions.}
+		\label{tab:ladder}
+		\setlength{\tabcolsep}{3pt}
+		\resizebox{\columnwidth}{!}{%
+			\begin{tabular}{llrrl}
+				\toprule
+				generated by & class & $n{=}1$ & $n{=}2$ & result\\\midrule
+				$\DIF$ & odd, $\Odd$ & 3 & 81 & Thm.~\ref{thm:odd}\\
+				$\SYN,\OR,\XOR,\AND,\NOT$ & Boolean-preserving, $\BP$ & 12 & 3888 & Thm.~\ref{thm:bool}\\
+				$\SYN,\DIF,\OR,\XOR,\AND$ & zero-fixing, $\Z$ & 9 & 6561 & Thm.~\ref{thm:zero}(b)\\
+				those five and any $f\notin\Z$ & all, $\OD$ & 27 & 19\,683 & Thm.~\ref{thm:zero}(c)\\
+				$\{\DIF,\NOT\}$ or $\{\SYN,\ANT,\NOT\}$ & all, $\OD$ & 27 & 19\,683 & Thm.~\ref{thm:class}\\
+				\bottomrule
+		\end{tabular}}
+	\end{table}
+	
+	%=====================================================================
+	% Functional Completeness
+	%=====================================================================
+	\section{Functional completeness}
+	\begin{theorem}[classification]\label{thm:class}
+		Assume $0,+1,-1$ are not available as nullary operations. A subset $\Sigma\subseteq\{\SYN,\DIF,\OR,\XOR,\AND,\NOT,\ANT\}$ is functionally complete iff $\NOT\in\Sigma$ and ($\DIF\in\Sigma$ or $\{\SYN,\ANT\}\subseteq\Sigma$); equivalently, iff $\NOT\in\Sigma$ and $\Sigma$ generates $\Odd$. Exactly $40$ of the $127$ nonempty subsets are complete, and the minimal ones are $\{\DIF,\NOT\}$ and $\{\SYN,\ANT,\NOT\}$.
+	\end{theorem}
+	\begin{proof}
+		($\Leftarrow$) Over $\{\DIF,\NOT\}$ the constants $0=\DIF(x,x)$, $+1=\NOT(0)$ and $-1=\DIF(0,+1)$ are terms, and so are $\ANT=\DIF(0,\cdot)$, $\SYN(a,b)=\DIF(a,\ANT(b))$ and $\fold(x)=\NOT\big(\DIF(x,\DIF(x,\NOT(x)))\big)$ (check $x=-1,0,+1$). Hence $\OR=\fold\circ\SYN$, $\XOR=\fold\circ\DIF$ and, by Theorem~\ref{thm:pol}, $\AND=\DIF(\OR,\XOR)$. All five binary operations are terms and $\NOT\notin\Z$, so Theorem~\ref{thm:zero}(c) gives $\OD$. Since $\DIF(a,b)=\SYN(a,\ANT(b))$, the set $\{\SYN,\ANT,\NOT\}$ generates $\DIF$ and is complete too, and so is every superset.
+		
+		($\Rightarrow$) Without $\NOT$ all operations lie in $\Z$ (Theorem~\ref{thm:zero}a). Suppose that $\NOT\in\Sigma$, $\DIF\notin\Sigma$ and $\{\SYN,\ANT\}\not\subseteq\Sigma$. If $\ANT\notin\Sigma$, then $\Sigma\subseteq M_1=\{\SYN,\OR,\XOR,\AND,\NOT\}$. Otherwise $\ANT\in\Sigma$ and $\SYN\notin\Sigma$, so $\Sigma\subseteq M_2=\{\ANT,\OR,\XOR,\AND,\NOT\}$. Every operation of $M_1$ maps $B^k$ into $B$, hence $\langle M_1\rangle\subseteq\mathrm{Pol}(B)$. Every operation of $M_2$ preserves the reflexive symmetric relation $\rho=\{(a,b)\in\D^2: ab\ge0\}$ (a finite check over the $7^2$ pairs of elements of $\rho$), hence $\langle M_2\rangle\subseteq\mathrm{Pol}(\rho)$. Neither class contains $\DIF$: $\DIF(0,+1)=-1\notin B$, and $(+1,0),(0,+1)\in\rho$ but $\big(\DIF(+1,0),\DIF(0,+1)\big)=(+1,-1)\notin\rho$. Both classes are therefore proper subclones of $\OD$, and $\Sigma$ is incomplete. Counting: $2^5+2^4-2^3=40$ supersets of the two minimal sets.
+	\end{proof}
+	
+	\begin{corollary}[layers and completeness]\label{cor:dif}
+		(i)~No minimal complete set contains an even primitive: completeness is decided by the zero-moving $\NOT$ and the odd layer. (ii)~For any operation $f$, $\{\DIF,f\}$ generates $\OD$ iff $f\notin\Z$; in particular $\DIF$ with a unary $g$ is complete iff $g(0)\ne0$.
+	\end{corollary}
+	\begin{proof}
+		(i) is Theorem~\ref{thm:class}. (ii) If $f\in\Z$, everything generated lies in $\Z$. If $f\notin\Z$, the argument of Theorem~\ref{thm:zero}(c) gives the constants $\pm1$ and $\NOT=\DIF(+1,\cdot)$ from $\DIF$ and $f$, and $\{\DIF,\NOT\}$ is complete.
+	\end{proof}
+	Thus none of the seven operations is complete alone, $\{\DIF,\NOT\}$ is the unique complete pair, and there are six complete triples: $\{\DIF,\NOT,x\}$ for each of the other five operations $x$, and $\{\SYN,\ANT,\NOT\}$.
+	
+	\begin{remark}[constants as nullary operations]\label{rem:const}
+		If $0,+1,-1$ are given as nullary operations, $95$ of the $127$ subsets are complete: the $64$ containing $\DIF$, the $31$ containing $\SYN$ and another operation but not $\DIF$, and no others. The $64$ are complete because $\NOT=\DIF(+1,\cdot)$ and Theorem~\ref{thm:class} apply (so $\{\DIF\}$ alone is complete). For $\{\SYN,x\}$ with $x\in\{\OR,\XOR,\AND,\NOT,\ANT\}$ the closure of the binary slice with the constants is all $19\,683$ binary functions (Table~\ref{tab:consts}), which include a Webb function~\cite{webb1935}, so $\{\SYN,x\}$ is complete and so is every superset. The other $32$ subsets are incomplete: a nonempty subset of $\{\ANT,\OR,\XOR,\AND,\NOT\}$ and the constants preserve $\rho$ (as $(c,c)\in\rho$), and $\{\SYN\}$ with the constants preserves the order $-<0<+$, which $\DIF$ does not. The minimal sets are $\{\DIF\}$ and the five $\{\SYN,x\}$. Theorem~\ref{thm:class} counts the case without constants. The criterion of S{\l}upecki~\cite{slupecki1939,slupecki1972} gives the same classification (Supplement S6).
+	\end{remark}
+	\begin{table}[t]
+		\centering\footnotesize
+		\caption{Closures of the binary slice with the constants $0,\pm1$ (iterated composition from the projections; Supplement S4).}
+		\label{tab:consts}
+		\setlength{\tabcolsep}{3pt}
+		\begin{tabular}{lccccc}
+			\toprule
+			$\SYN$ with: & $\OR$ & $\XOR$ & $\AND$ & $\NOT$ & $\ANT$\\\midrule
+			size / height & 19\,683 / 5 & 19\,683 / 5 & 19\,683 / 5 & 19\,683 / 6 & 19\,683 / 6\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\emph{Generation profile.} Supplementary Table~S5 lists the 27 unary functions (the G3 branches) as terms: at most $4$ operator nodes with all seven operations, at most $8$ over $\{\DIF,\NOT\}$; all $19\,683$ binary functions appear at closure height $\le6$ (Supplement S4). For example the ternary half-adder carry is $\SYN(a,\DIF(b,\SYN(a,b)))$.
+	
+	%=====================================================================
+	% Configuration View: XY3, G3 and C9
+	%=====================================================================
+	\section{Configuration view: XY3, G3 and C9}\label{sec:c9}
+	Section~IV concerns functions of every arity; the three layers of~\cite{caiCN} are a configuration scheme for the $3^9$ binary functions. A BID value has three mutually exclusive readings $d=+1,0,-1$. \emph{XY3:} a three-bit mask $u\in B^{\D}$ gives one bit to each reading; there are $8$ masks, labeled by the eight trigrams of the EZing (I~Ching). \emph{G3:} the difference $g=u-v$ of two masks is a unary function $\D\to\D$; the $8\times8=64$ pairs cover all $27$ unary functions, labeled by pairs of trigrams~\cite{caiWO,caiCN} (Supplement S8). \emph{C9:} the first input $a$ selects one of three G3 branches $g_{-1},g_0,g_{+1}$ and applies it to the second input $b$; the three branch labels (the T9ID) fix one of $27^3=3^9$ binary functions. Three layers, masks, differences and a selector, therefore suffice for all $19\,683$ functions; minimality of three is not claimed. Two elementary counts connect these layers to the algebra.
+	
+	\begin{proposition}[difference lift]\label{prop:lift}
+		For $n\ge1$ and $F:\D^n\to\D$ let $z(F)=|\{x:F(x)=0\}|$. Exactly $2^{z(F)}$ pairs $(U,V)$ of functions $U,V:\D^n\to B$ satisfy $F=U-V$, and $\sum_F2^{z(F)}=4^{3^n}$.
+	\end{proposition}
+	\begin{proof}
+		At each $x$, $F(x)=+1$ iff $(U,V)(x)=(1,0)$, $F(x)=-1$ iff $(0,1)$, and $F(x)=0$ iff $(0,0)$ or $(1,1)$. The choices are independent over the $3^n$ points, so there are $2^{z(F)}$ pairs, and $\sum_F2^{z(F)}=(1+1+2)^{3^n}=(2^{3^n})^2$.
+	\end{proof}
+	For $n=1$ a pair $(U,V)$ is a pair of three-bit XY3 masks and $U-V$ is a G3 branch; all $27$ unary functions occur ($8$ masks, $\sum_g2^{z(g)}=64=8^2$), and each is a \chai{} term (Supplementary Table~S5). For $n=2$ there are $512$ masks and $4^9=512^2=262\,144$ pairs.
+	
+	\emph{C9 as a three-branch selector.} For $g_c=u_c-v_c\in\Fone$ ($c\in\D$) the configured function $C_9(a,b)=\sum_cS_c(a)g_c(b)$, with $S_c(a)=\iv{a=c}$, equals $U-V$ with Boolean $U=\sum_cS_c(a)u_c(b)$ and $V=\sum_cS_c(a)v_c(b)$, and the $27^3=3^9=19\,683$ branch triples correspond one-to-one to the binary functions $F\mapsto(F(-1,\cdot),F(0,\cdot),F(+1,\cdot))$. In \chai{} terms $S_c=E_c(x)=\NOT(\XOR(x,c))$, the product is $\AND$ and the sum of one-hot terms is $\SYN$, because $\AND(1,y)=y$, $\AND(0,y)=0$ and $\SYN(0,y)=\SYN(y,0)=y$. So
+	\begin{multline*}
+		F(a,b)=\SYN\big(P_{-1},\SYN(P_0,P_{+1})\big),\\
+		P_c=\AND\big(E_c(a),F(c,b)\big),
+	\end{multline*}
+	the three-valued Shannon/Post expansion~\cite{post1921,rosenbloom1942}; a worked example is in Supplementary S9.
+	
+	\begin{proposition}[symmetry]\label{prop:sym}
+		The input maps $\SWAP$, $\tau_A$, $\tau_B$ (sending $F(a,b)$ to $F(b,a)$, $F(-a,b)$, $F(a,-b)$) generate a group of order $8$, the dihedral group of the square acting on the $3\times3$ truth table. It has $\tfrac18\big(3^9+2\cdot3^3+3^5+4\cdot3^6\big)=2862$ orbits on $\Ftwo$: $27$, $54$, $675$ and $2106$ of sizes $1$, $2$, $4$ and $8$.
+	\end{proposition}
+	\begin{proof}
+		Burnside's lemma with cycle counts $9$ (identity), $3$ (rotations), $5$ (half-turn) and $6$ (four reflections); confirmed by explicit orbit enumeration.
+	\end{proof}
+	
+	\emph{Configuration words.} Reading $F$ row-major (rows $a=-,0,+$; columns $b=-,0,+$) with digits $0,1,2$ for $0,+1,-1$ gives a 9-trit word (T9ID in~\cite{caiCN}; the prefix \texttt{0t} marks a ternary literal as \texttt{0b} and \texttt{0x} do for binary and hexadecimal), for example $\SYN=\texttt{0t220\_201\_011}$ (the word that~\cite{caiCN} lists for its OR) and $\DIF=\texttt{0t022\_102\_110}$. $\SWAP,\tau_A,\tau_B$ permute digit positions, and output negation exchanges digits $1$ and $2$. Nine trits are necessary and sufficient if each configuration digit is a ternary symbol, since $|\Ftwo|=3^9$; further words are in Supplementary S10.
+	
+	%=====================================================================
+	% Discussion
+	%=====================================================================
+	\section{Discussion}\label{sec:limits}
+	\emph{Positioning.} Post-function theory and clone-completeness criteria are classical~\cite{post1921,webb1935,slupecki1939,rosenberg1970,lau2006}, and recent work studies completeness of binary expansions of strong Kleene logic, where the signature is decisive~\cite{roblesmendez2022}. The clones involved are standard; the contribution is the derivation, the explicit terms and the classification for one signature. Switching theory~\cite{miller2008,muzio1986}, Post algebras~\cite{rosenbloom1942} and MV-algebras~\cite{cignoli2000} start from an ordered chain or bounded operations; here the order operations are derived and, unlike the bounded MV-sum, $\SYN$ and $\DIF$ are not associative.
+	
+	\emph{Relevance to ternary hardware.} Balanced-ternary addition and subtraction are sign-symmetric and saturation to one trit is familiar saturating arithmetic. Theorem~\ref{thm:odd} shows that one saturating-difference cell $\DIF$ defines every odd operation as a term, and Theorem~\ref{thm:bool} that $\SYN,\OR,\XOR,\AND,\NOT$ are exactly the cells that keep Boolean inputs Boolean, so one netlist computes a Boolean function on bits and a ternary function on trits. One binary operation can generate all functions~\cite{webb1935}; what is specific here is that the cell is the arithmetic comparator and that the zero-moving ingredient is isolated exactly. The results establish algebraic term-definability; implementation cost and hardware performance remain to be evaluated.
+	
+	\emph{Limitations.} (1)~\chai{} is an algebra of operations, not a logic: no designated values or consequence relation are fixed. (2)~No axiomatization of the equational theory is given, and the lattice of clones generated by the $127$ subsets is not determined. (3)~The classification depends on the convention for constants (Remark~\ref{rem:const}). (4)~Saturation and folding after combining are design choices; other closures give other algebras. (5)~No hardware or machine-learning results are reported.
+	
+	\emph{Verification.} Finite computational results and term constructions were exhaustively checked via local verification scripts. The complete codebase is publicly available at \url{https://github.com/bitritware/logic}. These numerical checks support and complement the general arbitrary-arity proofs.
+	
+	%=====================================================================
+	% Conclusion
+	%=====================================================================
+	\section{Conclusion}
+	This work established Chai as a signed three-valued algebraic system derived by parameterizing the constant in Boolean negation into $\DIF(a,b) = \sigma(a-b)$. Through $\ANT$ and the selected saturation closure, the framework naturally extends the Boolean domain to $\{-1,0,+1\}$. Our functional completeness classification reveals that $\DIF$ single-handedly generates all odd operations, five binary primitives span the zero-fixing clone, and 40 out of 127 subsets achieve full completeness (rising to 95 with constants), decisively governed by $\NOT$ and the odd layer. Future work will investigate an equational axiomatization, the complete clone lattice, term-size lower bounds, designated values, and comprehensive hardware realizations.
+	
+	
+	%=====================================================================
+	% Acknowledgment
+	%=====================================================================
+	\section*{Acknowledgment}
+	The author thanks \ifdraft Megan, \fi a colleague for assistance with English translation and reference verification. Generative AI tools (ChatGPT, Claude, and Gemini) were used for language polishing, proof discussion, and script review. The author takes full responsibility for the final content.
+	\balance
+	
+	%=====================================================================
+	% thebibliography
+	%=====================================================================
+	\begin{thebibliography}{21}
+		\providecommand{\url}[1]{#1}
+		
+		\bibitem{knuth1997}
+		D.~E. Knuth, \emph{The Art of Computer Programming, Vol.~2: Seminumerical Algorithms}, 3rd~ed. Reading, MA: Addison-Wesley, 1997.
+		
+		\bibitem{brusentsov2011}
+		N.~P. Brusentsov and J. Ramil Alvarez, ``Ternary computers: The Setun and the Setun 70,'' in \emph{Perspectives on Soviet and Russian Computing}, ser. IFIP Advances in Information and Communication Technology, vol. 357, J. Impagliazzo and E. Proydakov, Eds. Berlin, Heidelberg: Springer, 2011, pp. 74--80, doi: 10.1007/978-3-642-22816-2\_10.
+		
+		\bibitem{lin2011}
+		S.~Lin, Y.-B. Kim, and F.~Lombardi, ``{CNTFET}-based design of ternary logic gates and arithmetic circuits,'' \emph{IEEE Trans. Nanotechnol.}, vol.~10, no.~2, pp. 217--225, 2011, doi: 10.1109/TNANO.2009.2036845.
+		
+		\bibitem{bos2022}
+		S.~Bos, H.~N. Risto, and H.~Gundersen, ``Beyond {CMOS}: Ternary and mixed radix {CNTFET} circuit design, simulation and verification,'' in \emph{Proc. IEEE Int. Symp. Circuits and Systems (ISCAS)}, 2022, pp. 80--85, doi: 10.1109/ISCAS48785.2022.9937259.
+		
+		\bibitem{ma2024}
+		S.~Ma, H.~Wang, L.~Ma, L.~Wang, W.~Wang, S.~Huang, L.~Dong, R.~Wang, J.~Xue, and F.~Wei, ``The era of 1-bit {LLMs}: {A}ll large language models are in 1.58 bits,'' arXiv:2402.17764, 2024.
+		
+		\bibitem{miller2008}
+		D.~M. Miller and M.~A. Thornton, \emph{Multiple Valued Logic: Concepts and Representations}. San Rafael, CA: Morgan \& Claypool, 2008.
+		
+		\bibitem{post1921}
+		E.~L. Post, ``Introduction to a general theory of elementary propositions,'' \emph{Amer. J. Math.}, vol.~43, no.~3, pp. 163--185, 1921, doi: 10.2307/2370324.
+		
+		\bibitem{slupecki1939}
+		J.~S{\l}upecki, ``Kryterium pe{\l}no{\'s}ci wielowarto{\'s}ciowych system{\'o}w logiki zda{\'n},'' \emph{C. R. S{\'e}ances Soc. Sci. Lett. Varsovie, Cl.\ III}, vol.~32, pp. 102--110, 1939.
+		
+		\bibitem{slupecki1972}
+		J.~S{\l}upecki, ``A criterion of fullness of many-valued systems of propositional logic,'' \emph{Studia Logica}, vol.~30, no.~1, pp. 153--157, 1972, doi: 10.1007/BF02120845.
+		
+		\bibitem{lukasiewicz1970}
+		J.~{\L}ukasiewicz, ``O logice tr{\'o}jwarto{\'s}ciowej,'' \emph{Ruch Filozoficzny}, vol.~5, pp. 170--171, 1920; English translation ``On three-valued logic,'' in \emph{Selected Works}, L. Borkowski, Ed. Amsterdam: North-Holland, 1970, pp. 87--88.
+		
+		\bibitem{roblesmendez2022}
+		G. Robles and J. M. M\'endez, ``A remark on functional completeness of binary expansions of Kleene's strong 3-valued logic,'' \emph{Logic Journal of the IGPL}, vol.~30, no.~1, pp.~21--33, 2022, doi: 10.1093/jigpal/jzaa028.
+		
+		\bibitem{kleene1952}
+		S.~C. Kleene, \emph{Introduction to Metamathematics}. Amsterdam: North-Holland, 1952.
+		
+		\bibitem{caiWOa}
+		G. Cai, ``Unit cooperative processing apparatus, parallel cooperative processing apparatus and information processing methods thereof,'' PCT Int. Appl. PCT/CN2009/074416, filed Oct. 13, 2009, published as WO 2011/044722 A1, Apr. 21, 2011.
+		
+		\bibitem{caiWO}
+		G. Cai, ``Computer system capable of performing hybrid operation of ternary operation and binary operation,'' PCT Int. Appl. PCT/CN2014/092045, filed Nov. 24, 2014, published as WO 2016/082081 A1, Jun. 2, 2016.
+		
+		\bibitem{caiCN}
+		G. Cai, ``Ternary calculation method and system based on the principle of dual-chain differential coupling'', Chinese patent appl.\ CN 202610267326.3, divisional of CN 201480074503.1, published as CN 122173050 A, Jun. 9, 2026.
+		
+		\bibitem{cignoli2000}
+		R.~L.~O. Cignoli, I.~M.~L. D'Ottaviano, and D.~Mundici, \emph{Algebraic Foundations of Many-Valued Reasoning}. Dordrecht: Kluwer, 2000.
+		
+		\bibitem{rosenberg1970}
+		I.~G. Rosenberg, ``{\"U}ber die funktionale Vollst{\"a}ndigkeit in den mehrwertigen Logiken,'' \emph{Rozpravy {\v C}eskoslovensk{\'e} Akad.\ V{\v e}d, {\v R}ada Mat.\ P{\v r}{\'\i}rod.\ V{\v e}d}, vol.~80, no.~4, pp. 3--93, 1970.
+		
+		\bibitem{lau2006}
+		D.~Lau, \emph{Function Algebras on Finite Sets}. Berlin: Springer, 2006.
+		
+		\bibitem{rosenbloom1942}
+		P.~C. Rosenbloom, ``Post algebras. {I}. {P}ostulates and general theory,'' \emph{Amer. J. Math.}, vol.~64, no.~1, pp. 167--188, 1942.
+		
+		\bibitem{webb1935}
+		D.~L. Webb, ``Generation of any $n$-valued logic by one binary operation,'' \emph{Proc. Natl. Acad. Sci. USA}, vol.~21, no.~5, pp. 252--254, 1935, doi: 10.1073/pnas.21.5.252.
+		
+		\bibitem{muzio1986}
+		J.~C. Muzio and T.~C. Wesselkamper, \emph{Multiple-Valued Switching Theory}. Bristol: Adam Hilger, 1986.
+		
+		
+	\end{thebibliography}
+	
+\end{document}
