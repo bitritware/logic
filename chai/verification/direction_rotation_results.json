@@ -1,0 +1,533 @@
+{
+ "3.1 ANT(a)=DIF(0,a)": {
+  "ok": true,
+  "detail": "3 cases"
+ },
+ "3.1 NOT(a)=DIF(1,a)=sgn(1-a)": {
+  "ok": true,
+  "detail": "3 cases"
+ },
+ "3.1 DIF(a,b)=SYN(a,ANT b)": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.1 SYN(a,b)=DIF(a,ANT b)": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.1 XOR(a,b)=OR(a,ANT b)": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.1 OR(a,b)=XOR(a,ANT b)": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.1 ANT and NOT are different (NOT(0)=+1, ANT(0)=0)": {
+  "ok": true,
+  "detail": "1 cases"
+ },
+ "3.1 OR=MAG o SYN, XOR=MAG o DIF (pointwise)": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.1 AND(a,b)=a*b on D": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.1 polarization AND=DIF(OR,XOR) on D": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.1 parity lemma (|a+b|,|a-b|) in {(0,0),(0,2),(2,0),(1,1)}": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "CONTROL SYN(a,b)=ANT(DIF(a,b))": {
+  "ok": true,
+  "detail": "statement correctly fails; first counterexample (-1, -1)"
+ },
+ "CONTROL DIF(a,b)=SYN(ANT a,b)": {
+  "ok": true,
+  "detail": "statement correctly fails; first counterexample (-1, 0)"
+ },
+ "3.2 truth tables as printed in the paper (SYN, DIF)": {
+  "ok": true,
+  "detail": "tables regenerated from the definitions and compared with the printed values"
+ },
+ "3.2 truth tables as printed in the paper (OR, XOR, AND)": {
+  "ok": true
+ },
+ "3.2 rotate_cw on a labelled matrix": {
+  "ok": true,
+  "detail": [
+   [
+    7,
+    4,
+    1
+   ],
+   [
+    8,
+    5,
+    2
+   ],
+   [
+    9,
+    6,
+    3
+   ]
+  ]
+ },
+ "3.2 rotate_ccw on a labelled matrix": {
+  "ok": true,
+  "detail": [
+   [
+    3,
+    6,
+    9
+   ],
+   [
+    2,
+    5,
+    8
+   ],
+   [
+    1,
+    4,
+    7
+   ]
+  ]
+ },
+ "3.2 rotate_ccw o rotate_cw = id (all 19683 matrices)": {
+  "ok": true,
+  "detail": "19683 cases"
+ },
+ "3.2 rotate_cw^4 = id (all 19683 matrices)": {
+  "ok": true,
+  "detail": "19683 cases"
+ },
+ "3.2 R_cw(T_SYN)=T_DIF": {
+  "ok": true
+ },
+ "3.2 R_ccw(T_DIF)=T_SYN": {
+  "ok": true
+ },
+ "3.2 R_cw(T_DIF)=-T_SYN": {
+  "ok": true
+ },
+ "3.2 R_ccw(T_SYN)=-T_DIF": {
+  "ok": true
+ },
+ "3.2 R_cw^2(T_SYN)=-T_SYN": {
+  "ok": true
+ },
+ "3.2 R_cw^4(T_SYN)=T_SYN": {
+  "ok": true
+ },
+ "3.2 R_cw^2(T_DIF)=-T_DIF": {
+  "ok": true
+ },
+ "3.2 R_cw(T_OR)=T_XOR": {
+  "ok": true
+ },
+ "3.2 R_ccw(T_OR)=T_XOR": {
+  "ok": true
+ },
+ "3.2 R_cw(T_XOR)=T_OR": {
+  "ok": true
+ },
+ "3.2 R_ccw(T_XOR)=T_OR": {
+  "ok": true
+ },
+ "3.2 R_cw^2(T_OR)=T_OR": {
+  "ok": true
+ },
+ "3.2 R_cw(T_AND)=-T_AND": {
+  "ok": true
+ },
+ "3.2 R_cw^2(T_AND)=T_AND": {
+  "ok": true
+ },
+ "CONTROL R_ccw(T_SYN)=T_DIF (wrong sign) is false": {
+  "ok": true,
+  "detail": "correct value is -T_DIF"
+ },
+ "CONTROL R_cw(T_DIF)=T_SYN (wrong sign) is false": {
+  "ok": true,
+  "detail": "correct value is -T_SYN"
+ },
+ "CONTROL R_cw(T_SYN)=T_SYN is false": {
+  "ok": true
+ },
+ "CONTROL rotation of T_AND is not T_XOR": {
+  "ok": true
+ },
+ "3.2 lemma: R_cw(T_F)(a,b)=F(-b,a) for all 19683 binary F": {
+  "ok": true,
+  "detail": "19683 functions"
+ },
+ "3.2 distinct things: for commutative F, R_cw(T_F) = column flip (b->ANT b); for DIF it differs by sign": {
+  "ok": true,
+  "detail": "1 cases"
+ },
+ "CONTROL 3.2 column flip alone is NOT the rotation of DIF": {
+  "ok": true,
+  "detail": "statement correctly fails; first counterexample ()"
+ },
+ "3.2 R^2 T=-T exactly for the odd functions (81=3^4); R^2 T=T for the even ones (3^5=243)": {
+  "ok": true,
+  "detail": {
+   "odd": 81,
+   "even": 243
+  }
+ },
+ "3.2 ANT-symmetry (Prop. 3): SYN, DIF odd; OR, XOR even": {
+  "ok": true
+ },
+ "3.2 MAG commutes with rotation (entrywise map)": {
+  "ok": true,
+  "detail": "19683 cases"
+ },
+ "3.3 Z = T_SYN + i T_DIF has the 9 entries sgn(a+b)+i sgn(a-b)": {
+  "ok": true
+ },
+ "3.3 R_ccw(Z) = i Z (exact Gaussian integers, every entry)": {
+  "ok": true
+ },
+ "3.3 R_cw(Z) = -i Z": {
+  "ok": true
+ },
+ "3.3 R_cw^4(Z) = Z, R_cw^2(Z) = -Z": {
+  "ok": true
+ },
+ "CONTROL R_cw(Z)=iZ is false": {
+  "ok": true
+ },
+ "CONTROL R_ccw(Z)=-iZ is false": {
+  "ok": true
+ },
+ "3.3 Z(a,b)=sgn_c((1+i)*conj(a+ib)) on D^2": {
+  "ok": true,
+  "detail": "9 cases"
+ },
+ "3.3 lemma: sgn_c(i*u) = i*sgn_c(u) for all Gaussian integers |re|,|im|<=6": {
+  "ok": true,
+  "detail": "169 cases"
+ },
+ "3.3 Z(i w) = -i Z(w) for all w=a+ib, |a|,|b|<=6 (extension of Z by the same formula)": {
+  "ok": true,
+  "detail": "169 cases"
+ },
+ "3.3 BID: c+id=(1+i)conj(X+iY), c=X+Y, d=X-Y (X,Y in {0,1})": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.3 BID: c^2-d^2=4XY for bits": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.3 BID: (c,d) determines (X,Y): X=(c+d)/2, Y=(c-d)/2": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.3 BID: d alone merges (0,0),(1,1); c alone merges (0,1),(1,0)": {
+  "ok": true,
+  "detail": "1 cases"
+ },
+ "3.4 folded pair W=T_OR+iT_XOR: R_ccw(W)=i*conj(W)": {
+  "ok": true
+ },
+ "3.4 folded pair is NOT multiplied by i: R_ccw(W)=iW is false": {
+  "ok": true
+ },
+ "3.4 folded pair: R^2(W)=W (period 2)": {
+  "ok": true
+ },
+ "3.4 MAG(-1)=MAG(+1)=1, MAG(0)=0": {
+  "ok": true
+ },
+ "3.4 T_OR=MAG(T_SYN), T_XOR=MAG(T_DIF) entrywise": {
+  "ok": true
+ },
+ "3.4 counterexample: MAG(DIF(-1,+1))=1 but MAG(DIF(+1,+1))=0 although MAG(-1)=MAG(+1)": {
+  "ok": true,
+  "detail": {
+   "MAG(DIF(-1,1))": 1,
+   "MAG(DIF(1,1))": 0
+  }
+ },
+ "3.4 ker(MAG)={{-1,+1},{0}} is compatible with exactly AND and ANT among the seven operations": {
+  "ok": true,
+  "detail": {
+   "SYN": false,
+   "DIF": false,
+   "OR": false,
+   "XOR": false,
+   "AND": true,
+   "NOT": false,
+   "ANT": true
+  }
+ },
+ "3.4 MAG(AND(a,b)) = min(MAG a, MAG b), MAG(ANT a)=MAG a": {
+  "ok": true
+ },
+ "3.4 witnesses for the operations that do not respect ker(MAG)": {
+  "ok": true,
+  "detail": {
+   "SYN": "((-1, -1), (-1, 1), -1, 0)",
+   "DIF": "((-1, -1), (-1, 1), 0, -1)",
+   "OR": "((-1, -1), (-1, 1), 1, 0)",
+   "XOR": "((-1, -1), (-1, 1), 0, 1)",
+   "NOT": "((-1,), (1,), 1, 0)"
+  }
+ },
+ "3.4 the full algebra (seven operations) has exactly the two trivial congruences (5 partitions of D examined)": {
+  "ok": true,
+  "detail": {
+   "partitions": 5,
+   "congruences": [
+    [
+     [
+      -1,
+      0,
+      1
+     ]
+    ],
+    [
+     [
+      -1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ]
+   ]
+  }
+ },
+ "3.4 the full algebra has no proper subalgebra other than D (no nonempty proper subset is closed)": {
+  "ok": true,
+  "detail": [
+   "{0, 1, -1}"
+  ]
+ },
+ "3.4 the full algebra has only the identity automorphism": {
+  "ok": true,
+  "detail": [
+   [
+    -1,
+    0,
+    1
+   ]
+  ]
+ },
+ "3.4 {0,+1} is closed under SYN, OR, XOR, AND, NOT and not under DIF, ANT": {
+  "ok": true,
+  "detail": {
+   "SYN": true,
+   "DIF": false,
+   "OR": true,
+   "XOR": true,
+   "AND": true,
+   "NOT": true,
+   "ANT": false
+  }
+ },
+ "3.4 on {0,1}: SYN = boolean OR": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.4 on {0,1}: MAG o DIF = boolean XOR": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.4 on {0,1}: XOR = boolean XOR, OR = boolean OR": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.4 on {0,1}: AND = boolean AND": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.4 on {0,1}: NOT = boolean NOT (1-x)": {
+  "ok": true,
+  "detail": "2 cases"
+ },
+ "3.4 DIF(0,1)=-1 and DIF(1,0)=+1: two-valued inputs give a signed result outside {0,1}": {
+  "ok": true
+ },
+ "3.4 MAG(DIF) folds the two directions: MAG(DIF(0,1))=MAG(DIF(1,0))=1": {
+  "ok": true,
+  "detail": "1 cases"
+ },
+ "CONTROL 3.4 DIF is not boolean: DIF(0,1) not in {0,1}": {
+  "ok": true,
+  "detail": "statement correctly fails; first counterexample ()"
+ },
+ "3.4 on {0,1}: polarization AND=DIF(OR,XOR) is inclusion-exclusion (OR - XOR = AND)": {
+  "ok": true,
+  "detail": "4 cases"
+ },
+ "3.5 characteristic functions: 1_{A|B}=OR=SYN, 1_{A^B}=XOR, 1_{A&B}=AND on all 64 pairs of subsets of a 3-set": {
+  "ok": true
+ },
+ "3.5 1_{A&B} = 1_{A|B} - 1_{A^B} and |A&B| = |A|B| - |A^B| (all 64 pairs)": {
+  "ok": true
+ },
+ "3.5 AND = DIF(OR,XOR) on the characteristic values": {
+  "ok": true
+ },
+ "CONTROL 3.5 on {-2..2} the descent fails: polarization false": {
+  "ok": true,
+  "detail": "statement correctly fails; first counterexample (-2, -1)"
+ },
+ "S14 quarter-turn identities hold on the grid {-2..2} (sgn-defined operations, F(-b,a) form)": {
+  "ok": true,
+  "detail": "25 points"
+ },
+ "S14 quarter-turn identities hold on the grid {-3..3} (sgn-defined operations, F(-b,a) form)": {
+  "ok": true,
+  "detail": "49 points"
+ },
+ "S14 quarter-turn identities hold on the grid {-5..5} (sgn-defined operations, F(-b,a) form)": {
+  "ok": true,
+  "detail": "121 points"
+ },
+ "S14 contrast: polarization AND=DIF(OR,XOR) fails on {-2..2} (the descent to signs is special to D)": {
+  "ok": true
+ },
+ "3.2 orbits of the 19683 binary functions under the rotation group C4: 4995 (Burnside (3^9+2*3^3+3^5)/4)": {
+  "ok": true,
+  "detail": {
+   "1": 27,
+   "4": 4860,
+   "2": 108
+  }
+ },
+ "3.2 orbits under the dihedral group D4 generated by rotation and swap: 2862 (= v9 Proposition 5)": {
+  "ok": true,
+  "detail": {
+   "1": 27,
+   "4": 675,
+   "8": 2106,
+   "2": 54
+  }
+ },
+ "3.2 D4-orbit of DIF = {DIF, SYN, -DIF, -SYN} (size 4)": {
+  "ok": true
+ },
+ "3.2 D4-orbit of OR = {OR, XOR} (size 2); orbit of AND = {AND, -AND}": {
+  "ok": true
+ },
+ "S16 sign-linear binary functions sgn(alpha a+beta b), |alpha|,|beta|<=12: exactly 17 distinct functions": {
+  "ok": true,
+  "detail": 17
+ },
+ "S16 the 17 sign-linear functions form D4-orbits of sizes 8, 4, 4, 1 (sectors, {SYN,DIF,-SYN,-DIF}, {a,b,-a,-b}, zero)": {
+  "ok": true,
+  "detail": [
+   1,
+   4,
+   4,
+   8
+  ]
+ },
+ "S16 every sign-linear function is odd (hence lies in the clone generated by DIF)": {
+  "ok": true
+ },
+ "S16 the table is determined by the signs of alpha, beta, alpha+beta, alpha-beta (8 sectors + 8 rays + 0)": {
+  "ok": true
+ },
+ "Remark 1: sgn(ab) = sgn(|a+b|-|a-b|) for all integers |a|,|b|<=12 (625 pairs)": {
+  "ok": true
+ },
+ "Remark 1 (negative control): the shifted statement sgn(ab) = sgn(|a+b|-|a-b|+1) is false": {
+  "ok": true
+ },
+ "Remark 1: the folded term DIF(sgn p^2, sgn q^2) equals sgn(ab) on D but fails on {-2..2}, first failure (2,1)": {
+  "ok": true,
+  "detail": [
+   [
+    -2,
+    -1
+   ],
+   [
+    -2,
+    1
+   ],
+   [
+    -1,
+    -2
+   ],
+   [
+    -1,
+    2
+   ]
+  ]
+ },
+ "Prop 6: NOT(y) = OR(y,-1) = XOR(y,+1) = DIF(+1,y), and ANT(y) = AND(y,-1)": {
+  "ok": true
+ },
+ "Prop 6 (negative control): NOT(y) = AND(y,-1) and ANT(y) = OR(y,-1) are false": {
+  "ok": true
+ },
+ "Prop 6: [y=+1] = NOT(NOT y), [y=-1] = NOT(SYN(y,+1)), -e = SYN(-1,NOT e) for e in {0,1}": {
+  "ok": true
+ },
+ "Prop 6: ANT(y) = SYN([y=-1], -[y=+1]) is a term over SYN, NOT and the constants; then DIF(a,b) = SYN(a, ANT b)": {
+  "ok": true
+ },
+ "Prop 6 (negative control): -e = SYN(+1,NOT e) is false": {
+  "ok": true
+ },
+ "Prop 6: SYN is monotone for -<0<+ (so {SYN} with the constants only gives monotone terms); ANT is not monotone": {
+  "ok": true
+ },
+ "Prop 6 (negative control): DIF is not monotone": {
+  "ok": true
+ },
+ "Prop 6: OR, XOR, AND, NOT, ANT and the constants preserve rho={ab>=0}": {
+  "ok": true
+ },
+ "Prop 6 (negative control): SYN and DIF do not preserve rho": {
+  "ok": true
+ },
+ "Prop 6: for all 127 subsets the criterion (DIF, or SYN plus one more) agrees with Slupecki certificates (all 27 unary terms and an onto essentially binary operation)": {
+  "ok": true
+ },
+ "Prop 6: 95 complete subsets = 64 containing DIF + 31 containing SYN and another operation but not DIF": {
+  "ok": true
+ },
+ "Prop 6: the 32 incomplete subsets are {SYN} and the 31 nonempty subsets of {OR,XOR,AND,NOT,ANT} (each carries a monotone / rho certificate)": {
+  "ok": true
+ },
+ "Prop 6: the criterion agrees with every row of classification_127.csv (complete_with_constants)": {
+  "ok": true,
+  "detail": 127
+ },
+ "S17 XY3: the eight masks are the Boolean functions 0, x, x'y', y', y, x|y, x', 1 on the three states (0b000..0b111)": {
+  "ok": true
+ },
+ "S17 G3: 27 gids -13..13 give 27 distinct functions and 27 pairs of disjoint masks (A,a)": {
+  "ok": true
+ },
+ "S17 G3: the trits of gid (most significant first, 1 for +1 and 2 for -1) are the values g(d=-1), g(0), g(+1), the code of S5": {
+  "ok": true
+ },
+ "S17 G3: gid = -gid(negated function) and G3(gid) = XY3(A) - XY3(a); e.g. gid -8 = 0t201 is x-y, the identity d": {
+  "ok": true
+ },
+ "S17 (negative control): G3 with the masks in the opposite bit order is not the same table": {
+  "ok": true
+ },
+ "_summary": {
+  "tests": 115,
+  "passed": 115,
+  "failed": [],
+  "python": "3.9.6",
+  "command": "verify_direction_rotation.py",
+  "status": "ALL ASSERTIONS PASSED"
+ }
+}

@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{The 27 unary functions $\Fone$ (the G3 branches) as \bidra{} terms. Code: digits $0,1,2$ for $0,+1,-1$, listing $g(-1),g(0),g(+1)$, with the prefix \texttt{0t} marking a ternary literal as \texttt{0b} and \texttt{0x} do for binary and hexadecimal. Size: minimum number of operator nodes over the seven operators (tree size, repeated subterms counted each time; exhaustive search). Term: the lexicographically smallest minimal term.}
+\label{tab:unary}
+\begin{tabular}{llcl@{\hspace{1.2em}}llcl}
+\toprule
+code & $g$ & size & term & code & $g$ & size & term\\\midrule
+\texttt{0t201} & $-0+$ & 0 & $a$ & \texttt{0t221} & $--+$ & 2 & $\DIF(a,\NOT(a))$\\
+\texttt{0t000} & $000$ & 1 & $\DIF(a,a)$ & \texttt{0t002} & $00-$ & 3 & $\ANT(\NOT(\NOT(a)))$\\
+\texttt{0t101} & $+0+$ & 1 & $\AND(a,a)$ & \texttt{0t012} & $0+-$ & 3 & $\DIF(\NOT(a),\AND(a,a))$\\
+\texttt{0t102} & $+0-$ & 1 & $\ANT(a)$ & \texttt{0t020} & $0-0$ & 3 & $\ANT(\NOT(\AND(a,a)))$\\
+\texttt{0t110} & $++0$ & 1 & $\NOT(a)$ & \texttt{0t021} & $0-+$ & 3 & $\DIF(\AND(a,a),\NOT(a))$\\
+\texttt{0t001} & $00+$ & 2 & $\NOT(\NOT(a))$ & \texttt{0t022} & $0--$ & 3 & $\ANT(\NOT(\ANT(a)))$\\
+\texttt{0t010} & $0+0$ & 2 & $\NOT(\AND(a,a))$ & \texttt{0t211} & $-++$ & 3 & $\SYN(\NOT(\AND(a,a)),a)$\\
+\texttt{0t011} & $0++$ & 2 & $\NOT(\ANT(a))$ & \texttt{0t222} & $---$ & 3 & $\ANT(\NOT(\DIF(a,a)))$\\
+\texttt{0t100} & $+00$ & 2 & $\DIF(\AND(a,a),a)$ & \texttt{0t120} & $+-0$ & 4 & $\DIF(\AND(a,a),\NOT(\ANT(a)))$\\
+\texttt{0t111} & $+++$ & 2 & $\NOT(\DIF(a,a))$ & \texttt{0t121} & $+-+$ & 4 & $\DIF(\AND(a,a),\NOT(\AND(a,a)))$\\
+\texttt{0t112} & $++-$ & 2 & $\DIF(\NOT(a),a)$ & \texttt{0t122} & $+--$ & 4 & $\ANT(\SYN(\NOT(\AND(a,a)),a))$\\
+\texttt{0t200} & $-00$ & 2 & $\AND(\NOT(a),a)$ & \texttt{0t210} & $-+0$ & 4 & $\DIF(\NOT(\ANT(a)),\AND(a,a))$\\
+\texttt{0t202} & $-0-$ & 2 & $\AND(\ANT(a),a)$ & \texttt{0t212} & $-+-$ & 4 & $\DIF(\NOT(\AND(a,a)),\AND(a,a))$\\
+\texttt{0t220} & $--0$ & 2 & $\ANT(\NOT(a))$ &  &  &  & \\
+\bottomrule
+\end{tabular}
+\end{table*}

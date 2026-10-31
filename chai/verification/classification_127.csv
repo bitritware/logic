@@ -1,0 +1,128 @@
+subset,complete_without_constants,certificate_if_incomplete,complete_with_constants,reason_if_incomplete_with_constants
+SYN,0,"zero-fixing; preserves {0,+1}",0,unary closure has 10 of 27 functions
+DIF,0,zero-fixing,1,
+OR,0,"zero-fixing; preserves {0,+1}; preserves rho",0,no onto essentially binary operation
+XOR,0,"zero-fixing; preserves {0,+1}; preserves rho",0,no onto essentially binary operation
+AND,0,"zero-fixing; preserves {0,+1}; preserves rho",0,unary closure has 7 of 27 functions
+NOT,0,"preserves {0,+1}; preserves rho",0,no onto essentially binary operation
+ANT,0,zero-fixing; preserves rho,0,no onto essentially binary operation
+SYN DIF,0,zero-fixing,1,
+SYN OR,0,"zero-fixing; preserves {0,+1}",1,
+SYN XOR,0,"zero-fixing; preserves {0,+1}",1,
+SYN AND,0,"zero-fixing; preserves {0,+1}",1,
+SYN NOT,0,"preserves {0,+1}",1,
+SYN ANT,0,zero-fixing,1,
+DIF OR,0,zero-fixing,1,
+DIF XOR,0,zero-fixing,1,
+DIF AND,0,zero-fixing,1,
+DIF NOT,1,,1,
+DIF ANT,0,zero-fixing,1,
+OR XOR,0,"zero-fixing; preserves {0,+1}; preserves rho",0,no onto essentially binary operation
+OR AND,0,"zero-fixing; preserves {0,+1}; preserves rho",0,unary closure has 17 of 27 functions
+OR NOT,0,"preserves {0,+1}; preserves rho",0,no onto essentially binary operation
+OR ANT,0,zero-fixing; preserves rho,0,no onto essentially binary operation
+XOR AND,0,"zero-fixing; preserves {0,+1}; preserves rho",0,unary closure has 17 of 27 functions
+XOR NOT,0,"preserves {0,+1}; preserves rho",0,no onto essentially binary operation
+XOR ANT,0,zero-fixing; preserves rho,0,no onto essentially binary operation
+AND NOT,0,"preserves {0,+1}; preserves rho",0,unary closure has 17 of 27 functions
+AND ANT,0,zero-fixing; preserves rho,0,unary closure has 7 of 27 functions
+NOT ANT,0,preserves rho,0,no onto essentially binary operation
+SYN DIF OR,0,zero-fixing,1,
+SYN DIF XOR,0,zero-fixing,1,
+SYN DIF AND,0,zero-fixing,1,
+SYN DIF NOT,1,,1,
+SYN DIF ANT,0,zero-fixing,1,
+SYN OR XOR,0,"zero-fixing; preserves {0,+1}",1,
+SYN OR AND,0,"zero-fixing; preserves {0,+1}",1,
+SYN OR NOT,0,"preserves {0,+1}",1,
+SYN OR ANT,0,zero-fixing,1,
+SYN XOR AND,0,"zero-fixing; preserves {0,+1}",1,
+SYN XOR NOT,0,"preserves {0,+1}",1,
+SYN XOR ANT,0,zero-fixing,1,
+SYN AND NOT,0,"preserves {0,+1}",1,
+SYN AND ANT,0,zero-fixing,1,
+SYN NOT ANT,1,,1,
+DIF OR XOR,0,zero-fixing,1,
+DIF OR AND,0,zero-fixing,1,
+DIF OR NOT,1,,1,
+DIF OR ANT,0,zero-fixing,1,
+DIF XOR AND,0,zero-fixing,1,
+DIF XOR NOT,1,,1,
+DIF XOR ANT,0,zero-fixing,1,
+DIF AND NOT,1,,1,
+DIF AND ANT,0,zero-fixing,1,
+DIF NOT ANT,1,,1,
+OR XOR AND,0,"zero-fixing; preserves {0,+1}; preserves rho",0,unary closure has 17 of 27 functions
+OR XOR NOT,0,"preserves {0,+1}; preserves rho",0,no onto essentially binary operation
+OR XOR ANT,0,zero-fixing; preserves rho,0,no onto essentially binary operation
+OR AND NOT,0,"preserves {0,+1}; preserves rho",0,unary closure has 17 of 27 functions
+OR AND ANT,0,zero-fixing; preserves rho,0,unary closure has 17 of 27 functions
+OR NOT ANT,0,preserves rho,0,no onto essentially binary operation
+XOR AND NOT,0,"preserves {0,+1}; preserves rho",0,unary closure has 17 of 27 functions
+XOR AND ANT,0,zero-fixing; preserves rho,0,unary closure has 17 of 27 functions
+XOR NOT ANT,0,preserves rho,0,no onto essentially binary operation
+AND NOT ANT,0,preserves rho,0,unary closure has 17 of 27 functions
+SYN DIF OR XOR,0,zero-fixing,1,
+SYN DIF OR AND,0,zero-fixing,1,
+SYN DIF OR NOT,1,,1,
+SYN DIF OR ANT,0,zero-fixing,1,
+SYN DIF XOR AND,0,zero-fixing,1,
+SYN DIF XOR NOT,1,,1,
+SYN DIF XOR ANT,0,zero-fixing,1,
+SYN DIF AND NOT,1,,1,
+SYN DIF AND ANT,0,zero-fixing,1,
+SYN DIF NOT ANT,1,,1,
+SYN OR XOR AND,0,"zero-fixing; preserves {0,+1}",1,
+SYN OR XOR NOT,0,"preserves {0,+1}",1,
+SYN OR XOR ANT,0,zero-fixing,1,
+SYN OR AND NOT,0,"preserves {0,+1}",1,
+SYN OR AND ANT,0,zero-fixing,1,
+SYN OR NOT ANT,1,,1,
+SYN XOR AND NOT,0,"preserves {0,+1}",1,
+SYN XOR AND ANT,0,zero-fixing,1,
+SYN XOR NOT ANT,1,,1,
+SYN AND NOT ANT,1,,1,
+DIF OR XOR AND,0,zero-fixing,1,
+DIF OR XOR NOT,1,,1,
+DIF OR XOR ANT,0,zero-fixing,1,
+DIF OR AND NOT,1,,1,
+DIF OR AND ANT,0,zero-fixing,1,
+DIF OR NOT ANT,1,,1,
+DIF XOR AND NOT,1,,1,
+DIF XOR AND ANT,0,zero-fixing,1,
+DIF XOR NOT ANT,1,,1,
+DIF AND NOT ANT,1,,1,
+OR XOR AND NOT,0,"preserves {0,+1}; preserves rho",0,unary closure has 17 of 27 functions
+OR XOR AND ANT,0,zero-fixing; preserves rho,0,unary closure has 17 of 27 functions
+OR XOR NOT ANT,0,preserves rho,0,no onto essentially binary operation
+OR AND NOT ANT,0,preserves rho,0,unary closure has 17 of 27 functions
+XOR AND NOT ANT,0,preserves rho,0,unary closure has 17 of 27 functions
+SYN DIF OR XOR AND,0,zero-fixing,1,
+SYN DIF OR XOR NOT,1,,1,
+SYN DIF OR XOR ANT,0,zero-fixing,1,
+SYN DIF OR AND NOT,1,,1,
+SYN DIF OR AND ANT,0,zero-fixing,1,
+SYN DIF OR NOT ANT,1,,1,
+SYN DIF XOR AND NOT,1,,1,
+SYN DIF XOR AND ANT,0,zero-fixing,1,
+SYN DIF XOR NOT ANT,1,,1,
+SYN DIF AND NOT ANT,1,,1,
+SYN OR XOR AND NOT,0,"preserves {0,+1}",1,
+SYN OR XOR AND ANT,0,zero-fixing,1,
+SYN OR XOR NOT ANT,1,,1,
+SYN OR AND NOT ANT,1,,1,
+SYN XOR AND NOT ANT,1,,1,
+DIF OR XOR AND NOT,1,,1,
+DIF OR XOR AND ANT,0,zero-fixing,1,
+DIF OR XOR NOT ANT,1,,1,
+DIF OR AND NOT ANT,1,,1,
+DIF XOR AND NOT ANT,1,,1,
+OR XOR AND NOT ANT,0,preserves rho,0,unary closure has 17 of 27 functions
+SYN DIF OR XOR AND NOT,1,,1,
+SYN DIF OR XOR AND ANT,0,zero-fixing,1,
+SYN DIF OR XOR NOT ANT,1,,1,
+SYN DIF OR AND NOT ANT,1,,1,
+SYN DIF XOR AND NOT ANT,1,,1,
+SYN OR XOR AND NOT ANT,1,,1,
+DIF OR XOR AND NOT ANT,1,,1,
+SYN DIF OR XOR AND NOT ANT,1,,1,
